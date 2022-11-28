@@ -17,8 +17,8 @@ export default function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/log-in" element={<Login />} />
-        <Route path="/mobile-ticket " element={<MobileTicket />} />
-        <Route path="/payment " element={<Payment />} />
+        <Route path="/mobile-ticket" element={<MobileTicket />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
       <Footer />
