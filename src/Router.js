@@ -15,11 +15,11 @@ export default function Router() {
       <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/Booking" element={<Booking />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/MobileTicket " element={<MobileTicket />} />
-        <Route path="/Payment " element={<Payment />} />
-        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/log-in" element={<Login />} />
+        <Route path="/mobile-ticket " element={<MobileTicket />} />
+        <Route path="/payment " element={<Payment />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
       <Footer />
     </BrowserRouter>
