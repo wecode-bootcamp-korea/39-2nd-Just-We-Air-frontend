@@ -1,5 +1,3 @@
-// theme.js
-
 const theme = {
   background: '#FFFEFC',
   white: '#FFFFFF',
