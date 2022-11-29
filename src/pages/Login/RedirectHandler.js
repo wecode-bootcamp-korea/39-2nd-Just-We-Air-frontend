@@ -2,14 +2,15 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Spinner from './Spinner';
-import { API, BASE_URL } from '../../config';
+import API from '../../config';
 import { CLIENT_ID, REDIRECT_URI } from './KakaoAuth';
 
 const RedirectHandler = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const code = searchParams.get('code');
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const code = searchParams.get('code');
   const fetchUrl = 'https://kauth.kakao.com/oauth/token';
+
   useEffect(() => {
     fetch(fetchUrl, {
       method: 'POST',
@@ -21,7 +22,7 @@ const RedirectHandler = () => {
       .then(res => res.json())
       .then(res => {
         if (res.access_token) {
-          fetch(`${BASE_URL}/users/signin`, {
+          fetch(API.login, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
@@ -32,17 +33,19 @@ const RedirectHandler = () => {
           })
             .then(res => res.json())
             .then(data => {
-              if (data.access_token) {
-                localStorage.setItem('accessToken', data.access_token);
-                navigate('/');
-              } else {
+              localStorage.setItem('accessToken', data.accessToken);
+              if (data.needUpdateUserProfile) {
                 alert('회원정보가 확인 되지 않아 회원가입 창으로 이동합니다.');
                 navigate('/sign-up');
+              } else {
+                navigate('/');
               }
             });
         }
       });
   });
+
   return <Spinner />;
 };
+
 export default RedirectHandler;

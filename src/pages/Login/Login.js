@@ -168,29 +168,29 @@ const MembershipSign = styled.a`
   font-size: 13px;
 `;
 
-const Reminder = styled.div`
-  padding: 10px;
-  background-color: #f2f2f2;
-`;
-const ReminderTitle = styled.div`
-  font-size: 15px;
-  padding: 5px 0;
-  font-weight: 550;
-`;
+// const Reminder = styled.div`
+//   padding: 10px;
+//   background-color: #f2f2f2;
+// `;
+// const ReminderTitle = styled.div`
+//   font-size: 15px;
+//   padding: 5px 0;
+//   font-weight: 550;
+// `;
 
-const ReminderContent = styled.div`
-  font-size: 15px;
-  padding: 5px 0;
-  line-height: 23px;
-`;
+// const ReminderContent = styled.div`
+//   font-size: 15px;
+//   padding: 5px 0;
+//   line-height: 23px;
+// `;
 
-const ReminderListWrapper = styled.ul`
-  padding: 15px;
-`;
-const ReminderList = styled.li`
-  list-style-type: circle;
-  font-size: 13px;
-  width: 340px;
-  font-weight: 550;
-  color: #808080;
-`;
+// const ReminderListWrapper = styled.ul`
+//   padding: 15px;
+// `;
+// const ReminderList = styled.li`
+//   list-style-type: circle;
+//   font-size: 13px;
+//   width: 340px;
+//   font-weight: 550;
+//   color: #808080;
+// `;
