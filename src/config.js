@@ -1,9 +1,10 @@
-export const BASE_URL = 'API주소-백엔드제공';
+export const BASE_URL = 'http://10.58.52.245:3000';
 const API = {
   main: `${BASE_URL}/`,
   booking: `${BASE_URL}/booking`,
-  login: `${BASE_URL}/log-in`,
-  signup: `${BASE_URL}/sign-up`,
+  login: `${BASE_URL}/users/signin`,
+  signup: `${BASE_URL}/users/update`,
   payment: `${BASE_URL}/payment`,
 };
+
 export default API;
