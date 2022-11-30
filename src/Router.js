@@ -23,6 +23,7 @@ export default function Router() {
         <Route path="/booking-details" element={<BookingDetails />} />
         <Route path="/booking-confirm" element={<BookingConfirm />} />
         <Route path="/log-in" element={<Login />} />
+        {/* <Route path="/oauth/callback/kakao" component={RedirectHandler} /> */}
         <Route path="/mobile-ticket" element={<MobileTicket />} />
         <Route path="/oauth/callback/kakao" element={<RedirectHandler />} />
         <Route path="/payment" element={<Payment />} />

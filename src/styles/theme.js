@@ -1,6 +1,6 @@
 const theme = {
-  background: '#FFFEFC',
-  white: '#FFFFFF',
+  background: '#FFFfFF',
+  white: '#ffffff',
   vermilion: '#ff7425',
   orange: '#FF9900',
   opacityOrange: 'rgba(242,153,74,0.5)',
