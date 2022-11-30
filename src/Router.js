@@ -10,6 +10,7 @@ import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import RedirectHandler from './pages/Login/RedirectHandler';
 import PaymentSuccess from './pages/Payment/PaymentSuccess';
+import BookingDetails from './pages/BookingDetails/BookingDetails';
 
 export default function Router() {
   return (
@@ -18,6 +19,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/booking-details" element={<BookingDetails />} />
         <Route path="/log-in" element={<Login />} />
         <Route path="/mobile-ticket" element={<MobileTicket />} />
         <Route path="/oauth/callback/kakao" element={<RedirectHandler />} />
