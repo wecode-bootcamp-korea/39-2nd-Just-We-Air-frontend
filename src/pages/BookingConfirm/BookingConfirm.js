@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function BookingConfirm() {
+  const { state } = useLocation();
+
+  const [userInfo, setUserInfo] = useState({
+    lastName: '',
+    firstName: '',
+    gender: '',
+    birth: '',
+    phoneNumber: '',
+    email: '',
+  });
+
+  const { lastName, firstName, gender, birth, phoneNumber, email } = userInfo;
+
   const [checkList, setCheckList] = useState({
     airfare: false,
     transporation: false,
@@ -10,6 +23,54 @@ export default function BookingConfirm() {
     additionalServices: false,
     notice: false,
   });
+
+  const handleAllCheck = () => {
+    if (isAllChecked) {
+      setCheckList({
+        airfare: false,
+        transporation: false,
+        bannedgoods: false,
+        additionalServices: false,
+        notice: false,
+      });
+    } else {
+      setCheckList({
+        airfare: true,
+        transporation: true,
+        bannedgoods: true,
+        additionalServices: true,
+        notice: true,
+      });
+    }
+  };
+
+  // const ChangeUserInfo = e => {
+  // if(!isAllChecked) {
+  //   alert('전체 규정에 동의해주세요!');
+
+  //   return;
+  // }
+
+  fetch(`http://23.45.66.75:3000/users/booking-confirm`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    body: JSON.stringify({
+      lastName: lastName,
+      firstName: firstName,
+      gender: gender,
+      birth: birth,
+      phoneNumber: phoneNumber,
+      email: email,
+    }),
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      setUserInfo(data);
+    });
+
+  const isAllChecked = Object.values(checkList).every(check => check);
 
   return (
     <BookingConfirmBox>
@@ -113,61 +174,53 @@ export default function BookingConfirm() {
         </TermsLeft>
 
         <TermsWrap>
-          <AgreeToAllBox>
-            <AgreeToAllInput id="termsCheck" type="checkbox" />
-            <AgreeToAllLabel htmlFor="termsCheck">전체 동의</AgreeToAllLabel>
-          </AgreeToAllBox>
-          <ConditionsBox>
-            <ConditionInput
-              id="conditionCheck"
+          <AgreeToAllBox onChange={handleAllCheck}>
+            <AgreeToAllInput
+              id="allTermsCheck"
               type="checkbox"
-              // name={name}
-              // checked={checkList[name]}
+              checked={isAllChecked}
             />
-            <CoditionLabel htmlFor="termsCheck">
-              항공권 운임 규정 동의
-            </CoditionLabel>
-            <ArrowAnchor />
-          </ConditionsBox>
-          <ConditionsBox>
-            <ConditionInput id="conditionCheck" type="checkbox" />
-            <CoditionLabel htmlFor="termsCheck">
-              국제선 여객운송 약관 동의
-            </CoditionLabel>
-            <ArrowAnchor />
-          </ConditionsBox>
-          <ConditionsBox>
-            <ConditionInput id="conditionCheck" type="checkbox" />
-            <CoditionLabel htmlFor="termsCheck">
-              항공기 반입금지 위험물 확인
-            </CoditionLabel>
-            <ArrowAnchor />
-          </ConditionsBox>
-          <ConditionsBox>
-            <ConditionInput id="conditionCheck" type="checkbox" />
-            <CoditionLabel htmlFor="termsCheck">
-              부가서비스 구매, 환불 규정 동의
-            </CoditionLabel>
-            <ArrowAnchor />
-          </ConditionsBox>
-          <ConditionsBox>
-            <ConditionInput id="conditionCheck" type="checkbox" />
-            <CoditionLabel htmlFor="termsCheck">
-              노선별 주의사항 확인 동의
-            </CoditionLabel>
-            <ArrowAnchor />
-          </ConditionsBox>
+            <AgreeToAllLabel htmlFor="allTermsCheck">전체 동의</AgreeToAllLabel>
+          </AgreeToAllBox>
+          {TERMS.map(term => (
+            <ConditionsBox
+              key={term.id}
+              onChange={() =>
+                setCheckList({
+                  ...checkList,
+                  [term.type]: !checkList[term.type],
+                })
+              }
+            >
+              <ConditionInput
+                id={term.type}
+                type="checkbox"
+                checked={checkList[term.type]}
+              />
+              <CoditionLabel htmlFor={term.type}>{term.title}</CoditionLabel>
+              <ArrowAnchor />
+            </ConditionsBox>
+          ))}
+          <PaymentBtn disabled={!isAllChecked} onClick>
+            결제하기
+          </PaymentBtn>
         </TermsWrap>
       </TermsBox>
-
-      <Link to="/payment">
-        <PaymentBox>
-          <PaymentBtn onClick>결제하기</PaymentBtn>
-        </PaymentBox>
-      </Link>
     </BookingConfirmBox>
   );
 }
+
+const TERMS = [
+  { id: 0, title: '항공권 운임 규정 동의', type: 'airfare' },
+  { id: 1, title: '국제선 여객운송 약관 동의', type: 'transporation' },
+  { id: 2, title: '항공기 반입금지 위험물 확인', type: 'bannedgoods' },
+  {
+    id: 3,
+    title: '부가서비스 구매, 환불 규정 동의',
+    type: 'additionalServices',
+  },
+  { id: 4, title: '노선별 주의사항 확인 동의', type: 'notice' },
+];
 
 const BookingConfirmBox = styled.div`
   display: flex;
@@ -509,19 +562,19 @@ const ArrowAnchor = styled.span`
   margin-bottom: 20px;
 `;
 
-const PaymentBox = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-`;
-
 const PaymentBtn = styled.button`
   border: 0;
   outline: 0;
   background-color: #ff5000;
   color: #fff;
-  width: 140px;
-  height: 50px;
-  margin-left: 120px;
+  width: 200px;
+  height: 60px;
+  font-size: 18px;
+  margin: 50px auto 0;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 `;
