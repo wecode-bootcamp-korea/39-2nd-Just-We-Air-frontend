@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Booking from './pages/Booking/Booking';
+import BookingConfirm from './pages/BookingConfirm/BookingConfirm';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import MobileTicket from './pages/MobileTicket/MobileTicket';
@@ -20,6 +21,7 @@ export default function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/booking-details" element={<BookingDetails />} />
+        <Route path="/booking-confirm" element={<BookingConfirm />} />
         <Route path="/log-in" element={<Login />} />
         <Route path="/mobile-ticket" element={<MobileTicket />} />
         <Route path="/oauth/callback/kakao" element={<RedirectHandler />} />
