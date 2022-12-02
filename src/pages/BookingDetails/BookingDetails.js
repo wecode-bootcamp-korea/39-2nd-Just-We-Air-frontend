@@ -1,44 +1,48 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
+
+const PHONE_REGEX = /^[0-9]$/;
 
 export default function BookingDetails() {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     lastName: '',
     firstName: '',
     birth: '',
     phoneNumber: '',
     email: '',
+    gender: '',
   });
 
   const { lastName, firstName, birth, phoneNumber, email, gender } = userInfo;
 
   const handleUserInfo = e => {
     const { name, value } = e.target;
+
+    if (name === 'phoneNumber') {
+      setUserInfo(prev => ({
+        ...prev,
+        [name]: value
+          .replace(/\D/g, '')
+          .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3'),
+      }));
+
+      return;
+    }
+
     setUserInfo(prev => ({ ...prev, [name]: value }));
   };
 
-  //휴대폰번호 하이픈 자동입력
-  const [inputValue, setInputValue] = useState([]);
-
-  const handlePhone = e => {
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (regex.test(e.target.value)) {
-      setInputValue(e.target.value);
-    }
+  const genderHandler = e => {
+    setUserInfo({ ...userInfo, gender: e.target.value });
   };
-  useEffect(() => {
-    if (inputValue.length === 10) {
-      setInputValue(inputValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-    }
-    if (inputValue.length === 13) {
-      setInputValue(
-        inputValue
-          .replace(/-/g, '')
-          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-      );
-    }
-  }, [inputValue]);
 
+  const location = useLocation();
+
+  // 유저 정보 받아오기
   const getUserInfo = () => {
     fetch('/data/userInfo.json', {
       method: 'GET',
@@ -48,35 +52,47 @@ export default function BookingDetails() {
       },
     })
       .then(response => response.json())
-      .then(data => setUserInfo(data));
+      .then(data =>
+        setUserInfo({
+          ...data,
+          phoneNumber: data.phoneNumber
+            .replace(/\D/g, '')
+            .replace(
+              /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,
+              '$1-$2-$3'
+            ),
+          birth: data.birth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),
+        })
+      );
   };
 
   useEffect(() => {
     getUserInfo();
   }, []);
 
-  const sendUserInfo = () => {
-    fetch('/data/userInfo.json', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({
-        lastName: lastName,
-        firstName: firstName,
-        birth: birth,
-        gender: gender,
-        phoneNumber: phoneNumber,
-        email: email,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setUserInfo(data));
-  };
+  // 수정된 유저 정보 보내기
+  // const sendUserInfo = () => {
+  //   fetch('/data/userInfo.json', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //     },
+  //     body: JSON.stringify({
+  //       last_name: lastName,
+  //       first_name: firstName,
+  //       birth: birth.replaceAll('-',''),
+  //       gender: gender,
+  //       mobil_number: phoneNumber.replaceAll('-',''),
+  //       email: email,
+  //     }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => setUserInfo(data));
+  // };
 
-  useEffect(() => {
-    sendUserInfo();
-  }, []);
+  // useEffect(() => {
+  //   sendUserInfo();
+  // }, []);
 
   return (
     <BookingDetailsBox>
@@ -121,6 +137,7 @@ export default function BookingDetails() {
                   name="gender"
                   checked={userInfo.gender === 'female'}
                   value="female"
+                  onChange={e => genderHandler(e)}
                   readOnly
                 />
                 <Female>여자</Female>
@@ -131,6 +148,7 @@ export default function BookingDetails() {
                   name="gender"
                   checked={userInfo.gender === 'male'}
                   value="male"
+                  onChange={e => genderHandler(e)}
                   readOnly
                 />
                 <Male>남자</Male>
@@ -141,7 +159,12 @@ export default function BookingDetails() {
           <BirthBox>
             <BirthText>생년월일</BirthText>
             <BirthWrap>
-              <BirthInput type="date" />
+              <BirthInput
+                name="birth"
+                type="date"
+                value={birth}
+                onChange={handleUserInfo}
+              />
             </BirthWrap>
           </BirthBox>
         </GenderBirthBox>
@@ -159,8 +182,10 @@ export default function BookingDetails() {
                 <CodeNumber value="+82" />
                 <NumberInput
                   name="phoneNumber"
-                  value={(phoneNumber, inputValue)}
-                  onChange={(handleUserInfo, handlePhone)}
+                  value={phoneNumber}
+                  onChange={handleUserInfo}
+                  pattern={PHONE_REGEX}
+                  maxLength="13"
                 />
               </PhoneNumberWrap>
             </PhoneNumberBox>
@@ -177,6 +202,9 @@ export default function BookingDetails() {
           </NumberEmailBox>
         </ContactInfoBox>
       </PassengerInfoBox>
+      <NextBtn onClick={() => navigate('/BookingConfirm', { state: userInfo })}>
+        다음
+      </NextBtn>
     </BookingDetailsBox>
   );
 }
@@ -247,6 +275,7 @@ const EngName = styled.span`
 const PassengerInfoBox = styled.div`
   width: 1004px;
   margin: auto;
+  padding-bottom: 100px;
 `;
 
 const PassengerInfo = styled.div`
@@ -543,4 +572,23 @@ const EmailInput = styled.input`
   padding-top: 30px;
   padding-bottom: 20px;
   color: #333;
-  font-size: 18px;v`;
+  font-size: 18px;
+`;
+
+const NextBtn = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #ff5000;
+  color: #fff;
+  width: 200px;
+  height: 60px;
+  font-size: 18px;
+  margin: 50px auto 100px;
+
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+`;
