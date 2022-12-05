@@ -24,7 +24,7 @@ export default function PaymentConfirm() {
   //토스랑 결제 통신
   const REACT_APP_CLIENTKEY = `${process.env.REACT_APP_CLIENTKEY}`;
 
-  const OnClickPaymentHandler = () =>
+  const onClickPaymentHandler = () =>
     loadTossPayments(REACT_APP_CLIENTKEY).then(tossPayments => {
       tossPayments.requestPayment('카드', {
         amount: `${bookingInfo[0].total_price}`,
@@ -62,9 +62,7 @@ export default function PaymentConfirm() {
                   alt="삼성페이"
                   name="삼성페이"
                   src="/images/samsungpay.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -72,9 +70,7 @@ export default function PaymentConfirm() {
                   alt="페이팔페이"
                   name="페이팔 페이"
                   src="/images/paypal-logo.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -82,9 +78,7 @@ export default function PaymentConfirm() {
                   alt="유니언페이"
                   name="유니언 페이"
                   src="/images/unionpay.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -92,9 +86,7 @@ export default function PaymentConfirm() {
                   alt="위챗페이"
                   name="WeChat 페이"
                   src="/images/wechatpay.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -102,9 +94,7 @@ export default function PaymentConfirm() {
                   alt="카카오페이"
                   name="카카오페이"
                   src="/images/kakaopay.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -112,9 +102,7 @@ export default function PaymentConfirm() {
                   alt="토스페이"
                   name="토스페이"
                   src="/images/Toss.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
               <PaymentMethodWrapper>
@@ -122,9 +110,7 @@ export default function PaymentConfirm() {
                   alt="네이버페이"
                   name="네이버페이"
                   src="/images/naverpay.png"
-                  onClick={e => {
-                    updatePaymentName(e);
-                  }}
+                  onClick={updatePaymentName}
                 />
               </PaymentMethodWrapper>
             </PaymentBoxWrapper>
@@ -138,7 +124,7 @@ export default function PaymentConfirm() {
                 ))}
             </TotalPriceWrapper>
             <PaymentBtnWrapper>
-              <PaymentBtn onClick={OnClickPaymentHandler}>
+              <PaymentBtn onClick={onClickPaymentHandler}>
                 {methodName.name}로 결제 완료 하기
               </PaymentBtn>
             </PaymentBtnWrapper>
@@ -219,8 +205,12 @@ const PaymentMethodWrapper = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 1s;
   &:hover {
     border: 2px solid #ff5000;
+    width: 170px;
+    height: 90px;
+    transition: 1s;
   }
 `;
 
@@ -230,6 +220,12 @@ const PaymentMethod = styled.img`
   object-fit: scale-down;
   padding: 1px;
   margin: 5px;
+  transition: 1s;
+  &:hover {
+    width: 150px;
+    height: 60px;
+    transition: 1s;
+  }
 `;
 
 const TotalPriceWrapper = styled.div`
@@ -261,46 +257,17 @@ const PaymentBtn = styled.button`
   outline: 0;
   background-color: #ff5000;
   color: #fff;
-  width: 250px;
+  width: 280px;
   height: 50px;
   margin: 20px;
+  font-size: 15px;
   cursor: pointer;
   font-weight: 550;
-  /* &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  } */
+  transition: 1s;
   &:hover {
-    font-size: 15px;
+    font-size: 18px;
+    transition: 1s;
+    width: 290px;
+    /* height: 60px; */
   }
-`;
-
-//석민님 데이터
-const PaymentBtnWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 15px;
-  -webkit-box-pack: justify;
-  -webkit-box-align: center;
-`;
-
-const Solidbutton = styled.button`
-  display: inline-flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  margin: 0px;
-  border: 1px solid rgb(230, 230, 230);
-  border-radius: 1px;
-  background-color: transparent;
-  color: rgb(109, 109, 109);
-  font-size: 16px;
-  letter-spacing: -0.02em;
-  line-height: 27px;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
 `;

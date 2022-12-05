@@ -49,12 +49,8 @@ export default function PaymentSuccess() {
 
     axios
       .request(options)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+      .then(function (response) {})
+      .catch(function (error) {});
   }, []);
 
   //백에 키값들 보내기
@@ -143,10 +139,10 @@ const ConfirmDetailTitle = styled.div`
   text-align: center;
   font-weight: 550;
   font-size: 30px;
-  margin: 20px 0;
+  margin: 30px 0;
 `;
 const ConfirmDetailContent = styled.div`
-  /* text-align: center; */
+  margin: 30px 0;
 `;
 
 const RouteDetailWrap = styled.div`
