@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "order_number": "e469e1d8",
+    "total_price": "1000.00",
+    "Destination": [
+      {
+        "Arrival": "제주",
+        "Destination": "서울(인천)"
+      },
+      {
+        "Arrival": "도쿄(나리타)",
+        "Destination": "서울(인천)"
+      }
+    ]
+  }
+]
