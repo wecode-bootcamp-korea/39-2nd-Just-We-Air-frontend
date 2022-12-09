@@ -1,0 +1,326 @@
+{
+  "tickets": [
+    {
+      "tickets_id": 369,
+      "departure_date": "2022-12-09T00:30:00.000Z",
+      "arrival_date": "2022-12-10T01:15:00.000Z",
+      "flight_number": "L3913",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1105
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1106
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1107
+        }
+      ]
+    },
+    {
+      "tickets_id": 370,
+      "departure_date": "2022-12-09T01:30:00.000Z",
+      "arrival_date": "2022-12-09T02:30:00.000Z",
+      "flight_number": "D9CK4",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1108
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1109
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1110
+        }
+      ]
+    },
+    {
+      "tickets_id": 371,
+      "departure_date": "2022-12-09T02:30:00.000Z",
+      "arrival_date": "2022-12-09T03:30:00.000Z",
+      "flight_number": "DI122",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1111
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1112
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1113
+        }
+      ]
+    },
+    {
+      "tickets_id": 372,
+      "departure_date": "2022-12-09T03:30:00.000Z",
+      "arrival_date": "2022-12-09T04:30:00.000Z",
+      "flight_number": "33SK2",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1114
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1115
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1116
+        }
+      ]
+    },
+    {
+      "tickets_id": 373,
+      "departure_date": "2022-12-09T04:30:00.000Z",
+      "arrival_date": "2022-12-09T05:30:00.000Z",
+      "flight_number": "L3913",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1117
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1118
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1119
+        }
+      ]
+    },
+    {
+      "tickets_id": 374,
+      "departure_date": "2022-12-09T05:30:00.000Z",
+      "arrival_date": "2022-12-09T06:30:00.000Z",
+      "flight_number": "D9CK4",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1120
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1121
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1122
+        }
+      ]
+    },
+    {
+      "tickets_id": 375,
+      "departure_date": "2022-12-09T06:30:00.000Z",
+      "arrival_date": "2022-12-09T07:30:00.000Z",
+      "flight_number": "DI122",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1123
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1124
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1125
+        }
+      ]
+    },
+    {
+      "tickets_id": 376,
+      "departure_date": "2022-12-09T07:30:00.000Z",
+      "arrival_date": "2022-12-09T08:30:00.000Z",
+      "flight_number": "33SK2",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1126
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1127
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1128
+        }
+      ]
+    },
+    {
+      "tickets_id": 377,
+      "departure_date": "2022-12-09T08:30:00.000Z",
+      "arrival_date": "2022-12-09T09:30:00.000Z",
+      "flight_number": "L3913",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1129
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1130
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1131
+        }
+      ]
+    },
+    {
+      "tickets_id": 378,
+      "departure_date": "2022-12-09T09:30:00.000Z",
+      "arrival_date": "2022-12-09T10:30:00.000Z",
+      "flight_number": "D9CK4",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1132
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1133
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1134
+        }
+      ]
+    },
+    {
+      "tickets_id": 379,
+      "departure_date": "2022-12-09T10:30:00.000Z",
+      "arrival_date": "2022-12-09T11:30:00.000Z",
+      "flight_number": "DI122",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1135
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1136
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1137
+        }
+      ]
+    },
+    {
+      "tickets_id": 380,
+      "departure_date": "2022-12-09T11:30:00.000Z",
+      "arrival_date": "2022-12-09T12:30:00.000Z",
+      "flight_number": "33SK2",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1138
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1139
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1140
+        }
+      ]
+    },
+    {
+      "tickets_id": 381,
+      "departure_date": "2022-12-09T03:30:00.000Z",
+      "arrival_date": "2022-12-09T04:30:00.000Z",
+      "flight_number": "DI123",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1141
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1142
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1143
+        }
+      ]
+    },
+    {
+      "tickets_id": 382,
+      "departure_date": "2022-12-09T08:30:00.000Z",
+      "arrival_date": "2022-12-09T09:30:00.000Z",
+      "flight_number": "33SK3",
+      "tickets_options": [
+        {
+          "price": 30000,
+          "cabin_type": "스탠다드",
+          "ticket_option_id": 1144
+        },
+        {
+          "price": 70000,
+          "cabin_type": "플렉스",
+          "ticket_option_id": 1145
+        },
+        {
+          "price": 1000000,
+          "cabin_type": "프레스티지",
+          "ticket_option_id": 1146
+        }
+      ]
+    }
+  ]
+}

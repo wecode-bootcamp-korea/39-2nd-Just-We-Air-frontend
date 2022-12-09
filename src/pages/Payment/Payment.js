@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLocation } from 'react';
 import styled from 'styled-components';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import API from './../../config';
@@ -6,11 +6,22 @@ import API from './../../config';
 export default function PaymentConfirm() {
   //백에서 북킹 인포메이션 갖고 오기
   const [bookingInfo, setBookingInfo] = useState([]);
+  console.log(bookingInfo);
   const accessToken = localStorage.getItem('accessToken');
+  // const { state } = useLocation();
+
+  // const { arrivalSeat, departureSeat, userInfo } = state;
+
+  // const A = 132800;
+  // const B = 62400;
+
+  // const totalPrice = arrivalSeat.price + departureSeat.price + A + B;
+  // console.log(bookingInfo);
+
   useEffect(() => {
-    // fetch(API.orders, {
-    //백이랑 통신할때는 이걸로 바꾸기
-    fetch('/data/orderData.json', {
+    fetch(API.payment, {
+      //백이랑 통신할때는 이걸로 바꾸기
+      // fetch('/data/orderData.json', {
       //목데이터는 이렇게 호출
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -27,9 +38,9 @@ export default function PaymentConfirm() {
   const onClickPaymentHandler = () =>
     loadTossPayments(REACT_APP_CLIENTKEY).then(tossPayments => {
       tossPayments.requestPayment('카드', {
-        amount: `${bookingInfo[0].total_price}`,
-        orderId: `y0AoT6H4ewdsfds5X7Ol0k`,
-        orderName: `${bookingInfo[0].order_number}`,
+        amount: `${bookingInfo.total_price}`,
+        orderId: `${bookingInfo.order_number}`,
+        orderName: `${bookingInfo.order_number}`,
         customerName: '박토스',
         successUrl: 'http://localhost:3000/payment-success',
         failUrl: 'http://localhost:3000/payment',
@@ -44,7 +55,7 @@ export default function PaymentConfirm() {
   const updatePaymentName = e => {
     SetMethodName({ ...methodName, name: `${e.target.name}` });
   };
-
+  console.log(bookingInfo);
   return (
     <PaymentWrapper>
       <ConfirmPayment>결제 확인</ConfirmPayment>
@@ -116,16 +127,14 @@ export default function PaymentConfirm() {
             </PaymentBoxWrapper>
             <TotalPriceWrapper>
               <TotalPrice>총 결제 금액</TotalPrice>
-              {bookingInfo[0]?.id &&
-                bookingInfo.map(({ id, total_price }) => (
-                  <TotalPrice key={id}>
-                    {Math.floor(total_price).toLocaleString('ko-KR')}원
-                  </TotalPrice>
-                ))}
+
+              <TotalPrice>
+                {Math.floor(bookingInfo?.total_price).toLocaleString('ko-KR')}원
+              </TotalPrice>
             </TotalPriceWrapper>
             <PaymentBtnWrapper>
               <PaymentBtn onClick={onClickPaymentHandler}>
-                {methodName.name}로 결제 완료 하기
+                {methodName.name} 결제 완료 하기
               </PaymentBtn>
             </PaymentBtnWrapper>
           </ContentsWrap>

@@ -12,10 +12,12 @@ import Footer from './components/Footer/Footer';
 import RedirectHandler from './pages/Login/RedirectHandler';
 import PaymentSuccess from './pages/Payment/PaymentSuccess';
 import BookingDetails from './pages/BookingDetails/BookingDetails';
+import ScrollToTop from './ScrollToTop';
 
 export default function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Nav />
       <Routes>
         <Route path="/" element={<Main />} />

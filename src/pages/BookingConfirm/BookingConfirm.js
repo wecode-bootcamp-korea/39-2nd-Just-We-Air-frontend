@@ -1,20 +1,44 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import styled from 'styled-components';
+
+const A = 132800;
+const B = 62400;
 
 export default function BookingConfirm() {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState({
-    lastName: '',
-    firstName: '',
-    gender: '',
-    birth: '',
-    phoneNumber: '',
-    email: '',
-  });
+  const { arrivalSeat, departureSeat, userInfo } = state;
 
-  const { lastName, firstName, gender, birth, phoneNumber, email } = userInfo;
+  const departureCities = (id => {
+    if (id === '1') return '서울(인천)';
+    if (id === '2') return '서울(김포)';
+    if (id === '3') return '제주';
+    if (id === '4') return '도쿄(나리타)';
+    if (id === '5') return '오사카(간사이)';
+    if (id === '6') return '후쿠오카';
+    if (id === '7') return '나고야';
+    if (id === '8') return '삿포로';
+    if (id === '9') return '오키나와';
+    if (id === '10') return '괌';
+    if (id === '11') return '사이판';
+  })(departureSeat.departureIdData);
+
+  const arrivalCities = (id => {
+    if (id === '1') return '서울(인천)';
+    if (id === '2') return '서울(김포)';
+    if (id === '3') return '제주';
+    if (id === '4') return '도쿄(나리타)';
+    if (id === '5') return '오사카(간사이)';
+    if (id === '6') return '후쿠오카';
+    if (id === '7') return '나고야';
+    if (id === '8') return '삿포로';
+    if (id === '9') return '오키나와';
+    if (id === '10') return '괌';
+    if (id === '11') return '사이판';
+  })(arrivalSeat.arrivalIdData);
 
   const [checkList, setCheckList] = useState({
     airfare: false,
@@ -44,33 +68,55 @@ export default function BookingConfirm() {
     }
   };
 
-  // const ChangeUserInfo = e => {
-  // if(!isAllChecked) {
-  //   alert('전체 규정에 동의해주세요!');
+  const totalPrice = arrivalSeat.price + departureSeat.price + A + B;
 
-  //   return;
-  // }
+  const payBtn = () => {
+    navigate('/payment');
 
-  fetch(`http://23.45.66.75:3000/users/booking-confirm`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    body: JSON.stringify({
-      lastName: lastName,
-      firstName: firstName,
-      gender: gender,
-      birth: birth,
-      phoneNumber: phoneNumber,
-      email: email,
-    }),
-  })
-    .then(response => {
-      return response.json();
+    fetch(`http://10.58.52.240:3000/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: localStorage.getItem('accessToken'),
+      },
+
+      body: JSON.stringify({
+        total_price: totalPrice,
+        orderInfo: [
+          {
+            ticket_option_id: departureSeat.ticket_option_id,
+            first_name: userInfo.firstName,
+            last_name: userInfo.lastName,
+            birth: userInfo.birth,
+            gender: userInfo.gender,
+            mobile_number: userInfo.phoneNumber,
+            email: userInfo.email,
+          },
+          {
+            ticket_option_id: arrivalSeat.ticket_option_id,
+            first_name: userInfo.firstName,
+            last_name: userInfo.lastName,
+            birth: userInfo.birth,
+            gender: userInfo.gender,
+            mobile_number: userInfo.phoneNumber,
+            email: userInfo.email,
+          },
+        ],
+      }),
     })
-    .then(data => {
-      setUserInfo(data);
-    });
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        //navigate()
+      });
+  };
 
   const isAllChecked = Object.values(checkList).every(check => check);
+
+  // const formatArrivalDate = moment(arrivalSeat.arrivalDate)
+  //   .utc('ko-KO')
+  //   .format('YYYY.MM.DD LT');
 
   return (
     <BookingConfirmBox>
@@ -86,25 +132,25 @@ export default function BookingConfirm() {
 
             <OriginatingReturnBox>
               <OriginatingReturnBoxLeft>
-                <FlightNum>7C3102</FlightNum>
-                <FlightUnit>FLYBAG</FlightUnit>
+                <FlightNum>{departureSeat.flightNumber}</FlightNum>
+                <FlightUnitDep>{departureSeat.cabin_type}</FlightUnitDep>
               </OriginatingReturnBoxLeft>
 
               <OriginatingReturnBoxRight>
                 <FromInfoBox>
                   <FlightTimeWrap>
-                    <Date>2023.01.09(화)</Date>
-                    <Time>10:05</Time>
+                    <Date>2022.12.09(금)</Date>
+                    <Time>03:00</Time>
                   </FlightTimeWrap>
-                  <City>서울</City>
+                  <City>{departureCities}</City>
                 </FromInfoBox>
                 <Arrow />
                 <ToInfoBox>
                   <FlightTimeWrap>
-                    <Date>2023.01.09(화)</Date>
-                    <Time>15:20</Time>
+                    <Date>2022.12.09(금)</Date>
+                    <Time>05:00</Time>
                   </FlightTimeWrap>
-                  <City>괌</City>
+                  <City>{arrivalCities}</City>
                 </ToInfoBox>
               </OriginatingReturnBoxRight>
             </OriginatingReturnBox>
@@ -115,25 +161,25 @@ export default function BookingConfirm() {
 
             <OriginatingReturnBox>
               <OriginatingReturnBoxLeft>
-                <FlightNum>7C3102</FlightNum>
-                <FlightUnit>FLYBAG</FlightUnit>
+                <FlightNum>{arrivalSeat.flightNumber}</FlightNum>
+                <FlightUnitArr>{arrivalSeat.cabin_type}</FlightUnitArr>
               </OriginatingReturnBoxLeft>
 
               <OriginatingReturnBoxRight>
                 <FromInfoBox>
                   <FlightTimeWrap>
-                    <Date>2023.01.19(목)</Date>
-                    <Time>16:30</Time>
+                    <Date>2022.12.15(목)</Date>
+                    <Time>05:00</Time>
                   </FlightTimeWrap>
-                  <City>괌</City>
+                  <City>{arrivalCities}</City>
                 </FromInfoBox>
                 <Arrow />
                 <ToInfoBox>
                   <FlightTimeWrap>
-                    <Date>2023.01.19(목)</Date>
-                    <Time>20:35</Time>
+                    <Date>2022.12.15(목)</Date>
+                    <Time>07:00</Time>
                   </FlightTimeWrap>
-                  <City>서울</City>
+                  <City>{departureCities}</City>
                 </ToInfoBox>
               </OriginatingReturnBoxRight>
             </OriginatingReturnBox>
@@ -150,20 +196,24 @@ export default function BookingConfirm() {
           <AirFare>항공 운송료</AirFare>
           <FlightFareBox>
             <Flight>항공운임</Flight>
-            <FlightFare>658,900원</FlightFare>
+            <FlightFare>
+              {(arrivalSeat.price + departureSeat.price).toLocaleString()}원
+            </FlightFare>
           </FlightFareBox>
           <FuelSurchargeBox>
             <FuelSurcharge>유류할증료</FuelSurcharge>
-            <FuelSurchargeFare>132,800원</FuelSurchargeFare>
+            <FuelSurchargeFare>{A.toLocaleString()}원</FuelSurchargeFare>
           </FuelSurchargeBox>
           <AirportFacilityChargesBox>
             <AirportFacility>공항시설 사용료</AirportFacility>
-            <AirportFacilityFare>62,400원</AirportFacilityFare>
+            <AirportFacilityFare>{B.toLocaleString()}원</AirportFacilityFare>
           </AirportFacilityChargesBox>
 
           <EstimatedPaymentBox>
             <EstimatedPayment>예상 결제금액</EstimatedPayment>
-            <EstimatedPaymentFare>745,200원</EstimatedPaymentFare>
+            <EstimatedPaymentFare>
+              {totalPrice.toLocaleString()}원
+            </EstimatedPaymentFare>
           </EstimatedPaymentBox>
         </AirFareWrap>
       </FareDetailsBox>
@@ -201,7 +251,7 @@ export default function BookingConfirm() {
               <ArrowAnchor />
             </ConditionsBox>
           ))}
-          <PaymentBtn disabled={!isAllChecked} onClick>
+          <PaymentBtn disabled={!isAllChecked} onClick={payBtn}>
             결제하기
           </PaymentBtn>
         </TermsWrap>
@@ -288,8 +338,13 @@ const FlightNum = styled.span`
   font-weight: 500;
 `;
 
-const FlightUnit = styled.span`
-  font-weight: 500;
+const FlightUnitDep = styled.span`
+  font-weight: 600;
+  color: #0ea4de;
+`;
+
+const FlightUnitArr = styled.span`
+  font-weight: 600;
   color: #ff5000;
 `;
 
