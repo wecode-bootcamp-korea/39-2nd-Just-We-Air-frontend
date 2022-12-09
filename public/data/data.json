@@ -1,0 +1,18 @@
+{
+  "price": [
+    { "id": 200, "date": "12.02(금)", "lowest_price": "67400" },
+    { "id": 201, "date": "12.03(토)", "lowest_price": "7400" },
+    { "id": 300, "date": "12.04(일)", "lowest_price": "6400" },
+    { "id": 301, "date": "12.05(월요병)", "lowest_price": "670400" },
+    { "id": 4, "date": "12.06(화)", "lowest_price": "674" },
+    { "id": 5, "date": "12.07(수)", "lowest_price": "11367" },
+    { "id": 6, "date": "12.08(목)", "lowest_price": "45674" },
+    { "id": 7, "date": "12.09(금)", "lowest_price": "67400" },
+    { "id": 8, "date": "12.10(토)", "lowest_price": "7400" },
+    { "id": 9, "date": "12.11(일)", "lowest_price": "6400" },
+    { "id": 10, "date": "12.12(월요병)", "lowest_price": "670400" },
+    { "id": 11, "date": "12.13(화)", "lowest_price": "674" },
+    { "id": 12, "date": "12.14(수)", "lowest_price": "11367" },
+    { "id": 13, "date": "12.15(목)", "lowest_price": "45674" }
+  ]
+}

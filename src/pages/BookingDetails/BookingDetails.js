@@ -17,7 +17,7 @@ export default function BookingDetails() {
     gender: '',
   });
 
-  const { lastName, firstName, birth, phoneNumber, email, gender } = userInfo;
+  const { lastName, firstName, birth, phoneNumber, email } = userInfo;
 
   const handleUserInfo = e => {
     const { name, value } = e.target;
@@ -42,13 +42,15 @@ export default function BookingDetails() {
 
   const location = useLocation();
 
-  // 유저 정보 받아오기
+  // console.log(location.state);
+
+  // // 유저 정보 받아오기
   const getUserInfo = () => {
     fetch('/data/userInfo.json', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        authorization: localStorage.getItem('token'),
+        authorization: localStorage.getItem('accessToken'),
       },
     })
       .then(response => response.json())
@@ -69,30 +71,6 @@ export default function BookingDetails() {
   useEffect(() => {
     getUserInfo();
   }, []);
-
-  // 수정된 유저 정보 보내기
-  // const sendUserInfo = () => {
-  //   fetch('/data/userInfo.json', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json;charset=utf-8',
-  //     },
-  //     body: JSON.stringify({
-  //       last_name: lastName,
-  //       first_name: firstName,
-  //       birth: birth.replaceAll('-',''),
-  //       gender: gender,
-  //       mobil_number: phoneNumber.replaceAll('-',''),
-  //       email: email,
-  //     }),
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => setUserInfo(data));
-  // };
-
-  // useEffect(() => {
-  //   sendUserInfo();
-  // }, []);
 
   return (
     <BookingDetailsBox>
@@ -202,7 +180,13 @@ export default function BookingDetails() {
           </NumberEmailBox>
         </ContactInfoBox>
       </PassengerInfoBox>
-      <NextBtn onClick={() => navigate('/BookingConfirm', { state: userInfo })}>
+      <NextBtn
+        onClick={() =>
+          navigate('/Booking-confirm', {
+            state: { ...location.state, userInfo },
+          })
+        }
+      >
         다음
       </NextBtn>
     </BookingDetailsBox>

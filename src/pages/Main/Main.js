@@ -128,7 +128,8 @@ export default function Main() {
                     type="button"
                     onClick={() => {
                       navigate(
-                        `/booking?date=${startDay}&departureId=${departureId}&arrivalId=${arrivalId}`
+                        `/booking?departureDate=${startDay}&arrivalDate=${endDay}&departureId=${departureId}&arrivalId=${arrivalId}`,
+                        { state: { tripInfo } }
                       );
                     }}
                   >
@@ -225,7 +226,6 @@ const QuickBooking = styled.div`
   position: relative;
   z-index: 10;
   margin: 0;
-  border: 1px solid;
 `;
 
 const QuickBlock = styled.div`
@@ -245,8 +245,7 @@ const MainTicketContent = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   padding-bottom: 110px;
-
-  box-shadow: 0 3px 6px rgb(0 0 0 / 13%);
+  box-shadow: 0 2px 4px 2px rgb(0 0 0 / 40%);
 `;
 
 const MainTicketType = styled.ul`
@@ -364,7 +363,7 @@ const LayerStart = styled.div`
   margin: 0 auto;
   margin-top: 10px;
   border-radius: 5px;
-  box-shadow: 0 10px 30px rgb(0 0 0 / 13%);
+  box-shadow: 0 2px 4px 2px rgb(0 0 0 / 40%);
   background: #fff;
   transform: translateX(-50%);
   /* transform: scale(1.3) translate(-61%, 13%); */

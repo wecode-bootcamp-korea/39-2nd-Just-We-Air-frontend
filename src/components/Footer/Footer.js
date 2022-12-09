@@ -81,6 +81,7 @@ const FooterMainBox = styled.footer`
   width: 100%;
   border-top: 1px solid #ff5000;
   background-color: #ffffff;
+  margin-top: 180px;
 `;
 
 const FooterTopMenu = styled.div`
@@ -120,6 +121,7 @@ const FooterInside = styled.div`
 `;
 
 const FooterWrap = styled.div``;
+
 const FooterTextBox = styled.div`
   border: 1px solid #efefef;
 `;
@@ -135,6 +137,7 @@ const FooterText = styled.div`
   display: flex;
   position: relative;
   justify-content: space-between;
+  margin-bottom: 50px;
 `;
 
 const LeftFooter = styled.div`
@@ -142,16 +145,20 @@ const LeftFooter = styled.div`
 `;
 
 const CallCenter = styled.p`
-  padding-bottom: 25px;
+  margin-bottom: 10px;
   font-size: 25px;
 `;
 
 const CallCenterPhone = styled.p`
   font-size: 40px;
 `;
-const CallTime = styled.p``;
+const CallTime = styled.p`
+  margin-top: 8px;
+`;
 
-const RightFooter = styled.div``;
+const RightFooter = styled.div`
+  line-height: 18px;
+`;
 
 const FooterNav = styled.div``;
 
@@ -160,7 +167,8 @@ const FooterPolicy = styled.div``;
 const TopButton = styled.button`
   position: fixed;
   z-index: 99;
-  right: 20px;
+  right: 4px;
+  top: 93%;
   padding: 6px;
   transition: 0.3s;
   border-radius: 50%;

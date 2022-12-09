@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const HeadContent = styled.header``;
 const Container = styled.div`
   width: 100%;
-  border: 1px solid;
+  /* border-bottom: 2px solid #ff5000; */
 `;
 const ContainerOne = styled.div`
   display: flex;
@@ -38,6 +38,18 @@ const ContainerIndex = styled.button`
   cursor: pointer;
 `;
 export default function Nav() {
+  const token = localStorage.getItem('accessToken');
+  // const deleteToken = localStorage.removeItem('accessToken');
+
+  const goToMain = () => {
+    navigate('/');
+    localStorage.clear(token);
+  };
+
+  const goToLogIn = () => {
+    navigate('/log-in');
+  };
+
   const navigate = useNavigate();
   return (
     <HeadContent>
@@ -49,9 +61,12 @@ export default function Nav() {
               항공권 예매
             </ContainerIndex>
             <ContainerIndex>마이페이지</ContainerIndex>
-            <ContainerIndex onClick={() => navigate('/log-in')}>
-              로그인
-            </ContainerIndex>
+            {token ? (
+              <ContainerIndex onClick={goToMain}>로그아웃</ContainerIndex>
+            ) : (
+              <ContainerIndex onClick={goToLogIn}>로그인</ContainerIndex>
+            )}
+
             <ContainerIndex onClick={() => navigate('/SignUp')}>
               회원가입
             </ContainerIndex>

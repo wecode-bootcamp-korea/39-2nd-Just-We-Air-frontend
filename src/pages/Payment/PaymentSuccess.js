@@ -1,30 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import API from '../../config';
 
 export default function PaymentSuccess() {
-  //백에서 북킹 인포메이션 갖고 오기
   const [bookingInfo, setBookingInfo] = useState([]);
-  console.log(bookingInfo, `테스트`);
+  //이메일 보내는 식
 
   const accessToken = localStorage.getItem('accessToken');
+
   useEffect(() => {
-    // fetch(API.payment, {
-    //백이랑 통신할때는 이걸로 바꾸기
-    fetch('/data/orderData.json', {
-      //목데이터는 이렇게 호출
+    fetch(`http://10.58.52.240:3000/tickets`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         authorization: accessToken,
       },
     })
-      .then(res => res.json())
-      .then(result => setBookingInfo(result));
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        setBookingInfo(data);
+      });
   }, []);
+  //백에서 북킹 인포메이션 갖고 오기
+
+  // console.log(bookingInfo, `테스트1`);
+
+  // const accessToken = localStorage.getItem('accessToken');
+  // useEffect(() => {
+  //   fetch(API.payment, {
+  //     //백이랑 통신할때는 이걸로 바꾸기
+  //     // fetch('/data/orderData.json', {
+  //     //목데이터는 이렇게 호출
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //       authorization: accessToken,
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => setBookingInfo(result));
+  // }, []);
 
   //토스에 키값들 보내기
-  const [params] = useSearchParams();
+  const [params] = useSearchParams([]);
   const paymentKey = params.get('paymentKey');
   const order = params.get('orderId');
   const amount = params.get('amount');
@@ -87,7 +106,7 @@ export default function PaymentSuccess() {
       <ConfirmDetailWrap>
         <Mascot src="./images/orange.png" />
         <ConfirmDetailTitle>항공권 결제가 완료되었습니다.</ConfirmDetailTitle>
-        <ConfirmDetailContent>
+        {/* <ConfirmDetailContent>
           {bookingInfo[0]?.id &&
             bookingInfo.map(({ id, order_number, Destination }) => (
               <>
@@ -98,7 +117,7 @@ export default function PaymentSuccess() {
                   </RouteDetailContent>
                 </RouteDetailWrap>
                 <RouteDetailWrap>
-                  <ConfirmDetail>여정: </ConfirmDetail>
+                  <ConfirmDetail>가는 편 </ConfirmDetail>
                   <RouteDetailContent key={id}>
                     <ConfirmDetail>
                       {' '}
@@ -106,10 +125,18 @@ export default function PaymentSuccess() {
                       {Destination[0].Destination}
                     </ConfirmDetail>
                   </RouteDetailContent>
+                  <ConfirmDetail>오는 편 </ConfirmDetail>
+                  <RouteDetailContent key={id}>
+                    <ConfirmDetail>
+                      {' '}
+                      &nbsp;&nbsp;{Destination[1].Arrival} to{' '}
+                      {Destination[1].Destination}
+                    </ConfirmDetail>
+                  </RouteDetailContent>
                 </RouteDetailWrap>
               </>
             ))}
-        </ConfirmDetailContent>
+        </ConfirmDetailContent> */}
       </ConfirmDetailWrap>
     </PaymentWrapper>
   );
@@ -129,6 +156,7 @@ const ConfirmDetailWrap = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 100px;
 `;
 
 const Mascot = styled.img`
