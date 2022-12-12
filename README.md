@@ -13,6 +13,11 @@
 - 항공편 예매 확인<br />
 - 항공편 토스로 결제
 <br />
+<p align="center>
+<img src="https://user-images.githubusercontent.com/98579539/206952210-8f65c0b4-2c26-40f8-93b2-f3de305a8139.gif">
+</p>
+https://user-images.githubusercontent.com/98579539/206952210-8f65c0b4-2c26-40f8-93b2-f3de305a8139.gif
+<br />
 <br />
 <br />
 
